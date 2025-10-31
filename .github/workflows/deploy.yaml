@@ -1,0 +1,23 @@
+name: Deploy PavelBotov
+on:
+  push:
+    branches: [main]
+
+jobs:
+  deploy:
+    runs-on: docker
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v3
+
+      - name: Deploy via SSH
+        uses: appleboy/ssh-action@v0.1.7
+        with:
+          host: ${{ secrets.SSH_HOST }}
+          username: ${{ secrets.SSH_USER }}
+          key: ${{ secrets.SSH_KEY }}
+          script: |
+            cd /opt/pavelbotov
+            git pull
+            docker compose down
+            docker compose up -d --build
