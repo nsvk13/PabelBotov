@@ -1,0 +1,17 @@
+version: "3.9"
+
+services:
+  pavelbotov:
+    build: .
+    container_name: pavelbotov
+    restart: unless-stopped
+    environment:
+      - DISCORD_BOT_TOKEN=${DISCORD_BOT_TOKEN}
+      - NODE_ENV=production
+    volumes:
+      - ./data:/app/data
+    logging:
+      driver: "json-file"
+      options:
+        max-size: "10m"
+        max-file: "5"
