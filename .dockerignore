@@ -1,0 +1,24 @@
+# node/bun stuff
+node_modules
+bun.lockb
+npm-debug.log
+yarn-error.log
+
+# system
+.DS_Store
+.env
+.git
+.gitignore
+
+# build caches
+*.log
+tmp
+dist
+.cache
+coverage
+
+# local dev files
+*.sqlite
+*.db
+.idea
+.vscode
