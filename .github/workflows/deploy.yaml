@@ -6,16 +6,21 @@ on:
 
 jobs:
   deploy:
-    runs-on: [self-hosted]
+    runs-on: [self-hosted, linux]
 
     steps:
       - name: Checkout
         uses: actions/checkout@v4
 
       - name: Deploy locally
+        env:
+          DISCORD_BOT_TOKEN: ${{ secrets.DISCORD_BOT_TOKEN }}
+#         DISCORD_SERVER_ID: ${{ secrets.DISCORD_SERVER_ID }}
+#         KRAFTON_PUBG_API_KEY: ${{ secrets.KRAFTON_PUBG_API_KEY }}
         run: |
           cd /opt/pavelbotov
           git fetch origin main
           git reset --hard origin/main
           docker compose down
+          DISCORD_BOT_TOKEN=$DISCORD_BOT_TOKEN \
           docker compose up -d --build
